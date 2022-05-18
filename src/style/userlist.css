@@ -1,0 +1,24 @@
+.hero-container {
+    padding: 10px 22px;
+    margin-bottom: 8px;
+    box-shadow: 1px 1px 1px 1px #888888;
+}
+.col-2 {
+    display: flex;
+    justify-content: space-between;
+}
+.list-heading {
+    text-transform: capitalize;
+    text-align: center;
+}
+
+.user-info {
+    text-transform: capitalize;
+}
+.fas {
+    font-size: 16px;   
+    margin-left: 18px;
+}
+.fas:hover {
+    cursor: pointer;
+}
