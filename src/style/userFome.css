@@ -15,8 +15,7 @@
 .user_fome_container {
    display: flex;
    flex-direction: column;
-   justify-content: center;
-  
+   justify-content: center; 
 }
 
 .input-box {
