@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import '../style/userFome.css';
-
 export function UserFome() {
 	const [userDetail, setUserDetail] = useState({
 		userName:'',
 		profile: '',
-		age: ''
+		age: '',
+		// id: Math.floor(Math.random() * 100)
 	});
 	const [userListItems, setUserList] = useState([]);
 	const [isEdit, setIsEdit] = useState(false);
@@ -21,22 +21,22 @@ export function UserFome() {
 
 	const handleSubmit =  (e) => {
 		e.preventDefault();
-	
 	if(userDetail.userName === '' || userDetail.profile === '' || userDetail.age === '') {
 			alert("please fill input fields")
 		} else {
-			setUserList(userListItems => [...userListItems, userDetail]);	
+			setUserList(userListItems => [...userListItems, userDetail]);
+			setUserDetail({
+				userName:'',
+				profile: '',
+				age: '',
+				id: Math.floor(Math.random() * 100)
+			})	
 		}
 	}
 
-	const handleEditClick = (user,id) => {
+	const handleEditClick = (user) => {
 		setIsEdit(true)
 		setUserDetail(user)
-		// const index = userListItems.indexOf(user)
-		// console.log(index,id,"index");
-		// if(index !== id) {
-		// 	setUserList([...userListItems, userDetail])
-		// }
 	}
 
 	const handleRemoveClick = (id) => {
@@ -46,20 +46,19 @@ export function UserFome() {
 		setUserList([...userListItems])
 	}
 
-	const handleUpdate = (e,id) => {
+	const handleUpdate = (e,userDetail,id) => {
 		e.preventDefault()
-		console.log(userListItems,"log id");	
-		// setUserList(
-		// [	...userListItems,
-		// 	userDetail]
-		// )
-		// const index = userListItems.indexOf(userDetail)
-		// console.log(index,"index");
-		// setUserList([userDetail]);
-		setIsEdit(false)
-		handleEditClick(userDetail)
+		setUserList(userListItems.map(val => {
+			return val.id === id ? userDetail : val
+		}))
+		setUserDetail({
+			userName:'',
+			profile: '',
+			age: '',
+
+		})
+		setIsEdit(false)	
 	}
-	console.log(userListItems,"log");
 	return (
 		<>
 			<div className='Parent_container'>
@@ -72,7 +71,7 @@ export function UserFome() {
 									<div className='col-2'>
 										<span className='user-info'> Name : {user.userName}</span>
 										<span>
-											<i className="fas fa-edit" onClick={() => handleEditClick(user,id)} />
+											<i className="fas fa-edit" onClick={() => handleEditClick(user,user.id)} />
 											<i className="fas fa-trash-alt" onClick={() => handleRemoveClick(id)} />
 										</span>
 									</div>
@@ -113,7 +112,7 @@ export function UserFome() {
 							<button  className='submit-btn' onClick={handleSubmit}>
 							Submit								
 							</button>	:
-							<button  className='submit-btn' onClick={(e,id) =>handleUpdate(e,id)}>
+							<button  className='submit-btn' onClick={(e,id) =>handleUpdate(e,userDetail,userDetail.id)}>
 								Update								
 						</button>	
 						}								
@@ -124,4 +123,3 @@ export function UserFome() {
 
 	)
 }
-
